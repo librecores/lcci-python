@@ -1,0 +1,7 @@
+lcci/version.py
+
+/.eggs
+__pycache__
+/build
+/dist
+/lcci.egg-info
