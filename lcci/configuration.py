@@ -8,7 +8,17 @@ class Configuration(object):
         self.volumes = {}
         self.agents = {}
 
-        with open("lcci.yml", 'r') as ymlfile:
+        candidates = ["lcci.yml", "/etc/lcci.yml"]
+
+        for file in candidates:
+            try:
+                self.read_file(file)
+                break
+            except FileNotFoundError:
+                pass
+
+    def read_file(self, file):
+        with open(file, 'r') as ymlfile:
             cfg = yaml.load(ymlfile)
 
         if 'volumes' in cfg:
