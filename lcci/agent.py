@@ -21,14 +21,17 @@ class Agent(object):
         client = docker.from_env(version='auto')
         logging.info("Pull the image")
         try:
-            client.images.pull("librecores/ci-{}".format(self.type))
+            client.images.pull("librecores/ci-{}-agent".format(self.type))
         except docker.errors.ImageNotFound:
             logging.error("Cannot find image, invalid type set in configuration")
+            exit(1)
 
         env = { "AGENT_ID": self.id, "AGENT_SECRET": self.secret }
 
+        logging.info("Start the container")
+
         client.containers.run(
-            "librecores/ci-{}".format(self.type),
+            "librecores/ci-{}-agent".format(self.type),
             devices = self.devices,
             environment = env,
             detach = not no_daemon,
