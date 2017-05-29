@@ -27,5 +27,5 @@ class Configuration(object):
         if 'agents' in cfg:
             for name in cfg['agents']:
                 config = cfg['agents'][name]
-                agent = Agent(name, config)
+                agent = Agent(name, config, self.volumes)
                 self.agents[name] = agent
