@@ -13,8 +13,9 @@ class Agent(object):
         self.devices = config["devices"] if "devices" in config else []
 
         self.volumes = {}
-        for v in volumes:
-            self.volumes[v] = {'bind': volumes[v], 'mode': 'rw'}
+        for bind in volumes:
+            local = volumes[bind]
+            self.volumes[local] = {'bind': bind, 'mode': 'rw'}
 
     def start(self,no_daemon=False):
         logging.info("Start agent {}".format(self.name))
