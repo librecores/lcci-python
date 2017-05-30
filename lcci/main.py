@@ -21,6 +21,17 @@ def agent_start(args):
 
     agent.start(args.no_daemon)
 
+def agent_stop(args):
+    conf = Configuration(args)
+
+    try:
+        agent = conf.agents[args.agent]
+    except KeyError:
+        logging.error("Cannot find agent {}".format(args.agent))
+        exit(1)
+
+    agent.stop()
+
 def main():
      logging.basicConfig(level=logging.INFO)
 
@@ -42,6 +53,10 @@ def main():
      parser_agent_start.add_argument("agent")
      parser_agent_start.add_argument("--no-daemon", action='store_true')
      parser_agent_start.set_defaults(func=agent_start)
+
+     parser_agent_start = subparsers_agent.add_parser('stop', help='Stop agent')
+     parser_agent_start.add_argument("agent")
+     parser_agent_start.set_defaults(func=agent_stop)
 
      parsed_args = parser.parse_args()
      if hasattr(parsed_args, 'func'):

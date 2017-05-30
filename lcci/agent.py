@@ -1,6 +1,6 @@
 import logging
 
-import docker
+import docker, requests
 
 class Agent(object):
     """docstring for Agent."""
@@ -29,12 +29,46 @@ class Agent(object):
 
         env = { "AGENT_ID": self.id, "AGENT_SECRET": self.secret }
 
+        try:
+            cont = client.containers.get("lcci-{}".format(self.name))
+            logging.warn("Container already/yet exists")
+            self.stop()
+        except docker.errors.NotFound:
+            pass
+
         logging.info("Start the container")
 
         client.containers.run(
             "librecores/ci-{}-agent".format(self.type),
+            name = "lcci-{}".format(self.name),
             devices = self.devices,
             environment = env,
             detach = not no_daemon,
             volumes = self.volumes
         )
+
+    def stop(self):
+        logging.info("Stop agent {}".format(self.name))
+
+        client = docker.from_env(version='auto')
+
+        try:
+            cont = client.containers.get("lcci-{}".format(self.name))
+        except:
+            logging.error("Cannot find container")
+            exit(1)
+
+        try:
+            cont.stop()
+        except docker.errors.APIError as e:
+            if (e.status_code() == 137):
+                logging.error("Container cannot be stopped" + e)
+                exit(1)
+        except requests.exceptions.ReadTimeout:
+            cont.kill()
+
+        try:
+            cont.remove()
+        except docker.errors.APIError as e:
+            logging.error("Container cannot be removed")
+            exit(1)
