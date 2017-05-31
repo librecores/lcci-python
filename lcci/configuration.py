@@ -1,5 +1,6 @@
 import yaml
 from lcci.agent import Agent
+from lcci.tools import ToolRepository
 
 class Configuration(object):
     """docstring for Configuration"""
@@ -7,6 +8,7 @@ class Configuration(object):
         self.args = args
         self.volumes = {}
         self.agents = {}
+        self.githubapitoken = None
 
         candidates = ["lcci.yml", "/etc/lcci.yml"]
 
@@ -29,3 +31,10 @@ class Configuration(object):
                 config = cfg['agents'][name]
                 agent = Agent(name, config, self.volumes)
                 self.agents[name] = agent
+
+        if 'main' in cfg:
+            if 'github-api-token' in cfg['main']:
+                self.githubapitoken = cfg['main']['github-api-token']
+
+    def get_tool_repository(self, filter = None):
+        return ToolRepository(self.githubapitoken, self.volumes['/tools'], filter)
