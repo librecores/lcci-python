@@ -1,3 +1,6 @@
+*.pyc
+*~
+
 lcci/version.py
 
 /.eggs
