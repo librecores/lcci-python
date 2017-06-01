@@ -1,4 +1,4 @@
-import yaml
+import yaml, logging
 from lcci.agent import Agent
 from lcci.tools import ToolRepository
 
@@ -11,13 +11,19 @@ class Configuration(object):
         self.githubapitoken = None
 
         candidates = ["lcci.yml", "/etc/lcci.yml"]
+        found = False
 
         for file in candidates:
             try:
                 self.read_file(file)
+                found = True
                 break
-            except FileNotFoundError:
+            except:
                 pass
+
+        if not found:
+            logging.error("No configuration found")
+            exit(1)
 
     def read_file(self, file):
         with open(file, 'r') as ymlfile:
