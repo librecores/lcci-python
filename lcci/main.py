@@ -78,6 +78,10 @@ def tools_install(args):
         for t in repo.list(r):
             tools.append({'name': t.name, 'version': t.lcci_releases[r]})
 
+    logging.info("Will install the following tools:")
+    for t in tools:
+        logging.info("  {}:{}".format(t['name'],t['version']))
+
     for t in tools:
         tool = repo.get_tool(t['name'])
         tool.install(t['version'])
