@@ -43,4 +43,4 @@ class Configuration(object):
                 self.githubapitoken = cfg['main']['github-api-token']
 
     def get_tool_repository(self, filter = None):
-        return ToolRepository(self.githubapitoken, self.volumes['/tools'], filter)
+        return ToolRepository(self.githubapitoken, self.volumes['tools'], filter)
