@@ -1,8 +1,8 @@
 API Documentation
 =================
 
-Configuration
--------------
+``lcci.configuration``
+----------------------
 
 .. automodule:: lcci.configuration
     :members:
@@ -10,18 +10,18 @@ Configuration
     :show-inheritance:
 
 
-Tools
------
+``lcci.tools``
+--------------
 
 .. automodule:: lcci.tools
     :members:
     :undoc-members:
     :show-inheritance:
 
-Agents
------
+``lcci.agent``
+--------------
 
-    .. automodule:: lcci.agents
-        :members:
-        :undoc-members:
-        :show-inheritance:
+.. automodule:: lcci.agent
+    :members:
+    :undoc-members:
+    :show-inheritance:
