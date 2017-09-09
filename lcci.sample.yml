@@ -1,0 +1,5 @@
+#main:
+#  github-api-token: <TOKEN>
+volumes:
+  #TODO: Make it confurable via API
+  tools: lcci-tools
