@@ -3,11 +3,15 @@ LibreCores.org CI Tool
 
 This is the tool to administrate LibreCores.org Continuous Integration (lcci) instances.
 
-### Usage
+----------
+Usage
+----------
 
-TODO: Guidelines will be deployed soon
+Under construction: Guidelines will be deployed soon
 
-### Docker image for deploying tools
+----------
+Docker image for deploying tools
+----------
 
 Current image version uses a hardcoded "lcci-tools" volume to deploy tools.
 All available tools are listed here: https://github.com/lccitools
